@@ -402,4 +402,77 @@ template {
 [hidden] {
   display: none; }
 
-/*# sourceMappingURL=normalise.css.map */
+* {
+  box-sizing: border-box; }
+
+body {
+  background-color: #FFE1E6;
+  font-family: Segoe UI Light;
+  margin-top: 13px; }
+
+a {
+  text-decoration: none;
+  color: #000; }
+
+a:active {
+  color: green; }
+
+li {
+  list-style-type: none;
+  padding: 24px 24px 24px 0;
+  text-align: center; }
+
+input {
+  display: block;
+  margin: 0 auto;
+  width: 70%;
+  margin-bottom: 15px; }
+
+span {
+  font-size: 20px;
+  display: block; }
+
+img {
+  width: 90px;
+  border: 1px solid;
+  border-radius: 50px; }
+
+@media (min-width: 450px) {
+  li {
+    text-align: left;
+    padding: 24px 24px 24px 0; }
+
+  li:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+    transition: all ease 0.5s; }
+
+  span {
+    display: inline; } }
+.container {
+  width: 80%;
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #FFF; }
+
+.streamers {
+  padding-left: 20px; }
+
+.filter {
+  border-bottom: 2px solid;
+  padding: 9px;
+  background-color: #FFC966;
+  text-align: center;
+  margin-right: -4px;
+  cursor: pointer; }
+
+.filter:nth-of-type(3) {
+  margin-bottom: 15px; }
+
+@media (min-width: 450px) {
+  .filter {
+    width: 33.3%;
+    display: inline-block;
+    border-bottom: none;
+    border-right: 2px solid; } }
+
+/*# sourceMappingURL=app.css.map */

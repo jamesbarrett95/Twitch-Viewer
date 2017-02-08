@@ -1,12 +1,14 @@
 const channels = ["ESL_SC2", "OgamingSC2", "cretetion", "freecodecamp", "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas"];
-const streamers = document.getElementById("streamers");
+const streamersChildren = streamers.children;
+let promise = Promise.resolve();
 
 for(let i = 0; i < channels.length; i++) {
   let url = "https://api.twitch.tv/kraken/channels/" + channels[i] + "?client_id=t300383ams5iuxlej34gzwk11qjepn&stream_type=all&callback=?";
-  let channel = channels[i];
+  const p = $.getJSON(url);
+  promise = promise.then(x => p).then(callback);
+}
 
   function callback(data) {
-    console.log(data);
     const a = document.createElement("a");
     const li = document.createElement("li");
     const span = document.createElement("span");
@@ -21,6 +23,3 @@ for(let i = 0; i < channels.length; i++) {
     li.appendChild(span);
     streamers.appendChild(a);
   }
-
-  $.getJSON(url, callback);
-}
