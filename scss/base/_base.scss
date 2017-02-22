@@ -3,33 +3,38 @@
 }
 
 body {
-  background-color: #FFE1E6;
+  background-color: $pippin;
   font-family: Segoe UI Light;
   margin-top: 13px;
 }
 
 a {
   text-decoration: none;
-  color: #000;
+  color: $black;
+
+  &:active {
+    color: $green;
+  }
 }
-a:active {
-  color: green;
-}
+
 li {
   list-style-type: none;
   padding: 24px 24px 24px 0;
   text-align: center;
 }
+
 input {
   display: block;
   margin: 0 auto;
   width: 70%;
   margin-bottom: 15px;
 }
+
 span {
   font-size: 20px;
   display: block;
 }
+
 img {
   width: 90px;
   border: 1px solid;
@@ -40,11 +45,11 @@ img {
   li {
     text-align: left;
     padding: 24px 24px 24px 0;
-  }
 
-  li:hover {
-    background-color: rgba(0, 0, 0, 0.2);
-    transition: all ease 0.5s;
+    &:hover {
+      background-color: rgba($black, 0.2);
+      transition: all ease 0.5s;
+    }
   }
 
   span {
