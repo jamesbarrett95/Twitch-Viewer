@@ -8,6 +8,13 @@ body {
   margin-top: 13px;
 }
 
+input {
+  display: block;
+  margin: 0 auto;
+  width: 70%;
+  margin-bottom: 15px;
+}
+
 a {
   text-decoration: none;
   color: $black;
@@ -19,15 +26,27 @@ a {
 
 li {
   list-style-type: none;
-  padding: 24px 24px 24px 0;
+  padding-bottom: 20px;
+  padding-top: 20px;
   text-align: center;
-}
 
-input {
-  display: block;
-  margin: 0 auto;
-  width: 70%;
-  margin-bottom: 15px;
+  @media (min-width: 450px) {
+      &:hover {
+        background-color: rgba($black, 0.2);
+        transition: all ease 0.5s;
+      }
+    }
+
+  @media (min-width: 715px) {
+    & {
+      text-align: left;
+      margin-left: 40px;
+    }
+  }
+
+.online,
+.offline {
+
 }
 
 span {
@@ -41,18 +60,12 @@ img {
   border-radius: 50px;
 }
 
-@media (min-width: 450px) {
-  li {
-    text-align: left;
-    padding: 24px 24px 24px 0;
-
-    &:hover {
-      background-color: rgba($black, 0.2);
-      transition: all ease 0.5s;
-    }
-  }
-
   span {
-    display: inline;
+    display: block;
+    @media (min-width: 715px) {
+      & {
+        display: inline;
+      }
+    }
   }
 }

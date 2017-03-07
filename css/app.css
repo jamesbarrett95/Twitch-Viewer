@@ -410,6 +410,12 @@ body {
   font-family: Segoe UI Light;
   margin-top: 13px; }
 
+input {
+  display: block;
+  margin: 0 auto;
+  width: 70%;
+  margin-bottom: 15px; }
+
 a {
   text-decoration: none;
   color: black; }
@@ -418,34 +424,30 @@ a {
 
 li {
   list-style-type: none;
-  padding: 24px 24px 24px 0;
+  padding-bottom: 20px;
+  padding-top: 20px;
   text-align: center; }
-
-input {
-  display: block;
-  margin: 0 auto;
-  width: 70%;
-  margin-bottom: 15px; }
-
-span {
-  font-size: 20px;
-  display: block; }
-
-img {
-  width: 90px;
-  border: 1px solid;
-  border-radius: 50px; }
-
-@media (min-width: 450px) {
-  li {
-    text-align: left;
-    padding: 24px 24px 24px 0; }
+  @media (min-width: 450px) {
     li:hover {
       background-color: rgba(0, 0, 0, 0.2);
-      transition: all ease 0.5s; }
+      transition: all ease 0.5s; } }
+  @media (min-width: 715px) {
+    li {
+      text-align: left;
+      margin-left: 40px; } }
+  li span {
+    font-size: 20px;
+    display: block; }
+  li img {
+    width: 90px;
+    border: 1px solid;
+    border-radius: 50px; }
+  li span {
+    display: block; }
+    @media (min-width: 715px) {
+      li span {
+        display: inline; } }
 
-  span {
-    display: inline; } }
 .container {
   width: 80%;
   max-width: 600px;
@@ -453,7 +455,23 @@ img {
   background-color: #FFF; }
 
 .streamers {
-  padding-left: 20px; }
+  padding-left: 4px; }
+
+.leftCol {
+  text-align: center; }
+  @media (min-width: 715px) {
+    .leftCol {
+      width: 60%;
+      display: inline-block; } }
+
+.rightCol {
+  text-align: center;
+  margin-bottom: 30px; }
+  @media (min-width: 715px) {
+    .rightCol {
+      width: 40%;
+      display: inline-block;
+      margin-bottom: 0; } }
 
 .filter {
   border-bottom: 2px solid;

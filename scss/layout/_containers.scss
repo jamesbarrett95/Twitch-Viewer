@@ -6,7 +6,27 @@
 }
 
 .streamers {
-  padding-left: 20px;
+  padding-left: 4px;
+}
+
+.leftCol {
+  text-align: center;
+
+  @media (min-width: 715px) {
+    width: 60%;
+    display: inline-block;
+  }
+}
+
+.rightCol {
+  text-align: center;
+  margin-bottom: 30px;
+
+  @media (min-width: 715px) {
+    width: 40%;
+    display: inline-block;
+    margin-bottom: 0;
+  }
 }
 
 .filter {
