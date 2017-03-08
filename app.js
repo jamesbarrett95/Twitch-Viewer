@@ -1,45 +1,68 @@
 "use strict";
 
+const streamers = document.getElementById("streamers");
 const online = document.getElementById("online");
 const offline = document.getElementById("offline");
 const all = document.getElementById("all");
+const input = document.getElementById("input");
 
 const offlineUsers = document.getElementsByClassName("offline");
 const onlineUsers = document.getElementsByClassName("online");
 const allUsers = document.getElementsByClassName("all");
 
-var channels = ["efragtv", "OgamingSC2", "cretetion", "freecodecamp", "CohhCarnage", "habathcx", "RobotCaleb", "noobs2ninjas"];
-var streamers = document.getElementById("streamers");
-var getStreamersPromise = Promise.resolve();
+const channels = ["efragtv", "OgamingSC2", "cretetion", "Orbital_Star", "freecodecamp", "CohhCarnage", "habathcx", "RobotCaleb", "noobs2ninjas"];
+let getStreamersPromise = Promise.resolve();
+
+function createElement(elementName, property, attributes, value) {
+
+  const element = document.createElement(elementName);
+
+  function isEmpty(obj) {
+    for(var key in obj) {
+      if(obj.hasOwnProperty(key)) {
+        return false;
+      }
+    }
+    return true;
+}
+
+  function setAttributes(element, property, attributes) {
+    for(var key in attributes) {
+      element[property](key, attributes[key]);
+    }
+  }
+
+  if(isEmpty(attributes)) {
+    if(property !== "") {
+      element[property] = value;
+    } else {
+      return element;
+    }
+  } else {
+    setAttributes(element, property, attributes);
+  }
+  return element;
+}
 
 function appendOfflineUser(data) {
-  var row = document.createElement("div");
-  var leftCol = document.createElement("div");
-  var rightCol = document.createElement("div");
-  var a = document.createElement("a");
-  var li = document.createElement("li");
-  var name = document.createElement("span");
-  var offline = document.createElement("small");
-  var img = document.createElement("img");
 
-  row.className = "offline all";
+  if(data.status === 404) {
+    return;
+  }
 
-  leftCol.className = "leftCol";
-  rightCol.className = "rightCol";
-
-  a.setAttribute("href", data.url);
-  a.setAttribute("target", "blank");
-
-  img.setAttribute("src", data.logo);
-
-  name.textContent = data.display_name;
+  const row = createElement("div", "className", {}, "offline all");
+  const leftCol = createElement("div", "className", {}, "leftCol");
+  const rightCol = createElement("div", "className", {}, "rightCol");
+  const a = createElement("a", "setAttribute", {"href" : data.url, "target" : "blank"}, "");
+  const li = createElement("li", "", {}, "");
+  const name = createElement("span", "textContent", {}, data.display_name);
+  const offline = createElement("small", "textContent", {}, "Offline");
+  const img = createElement("img", "setAttribute", {"src" : data.logo}, "");
 
   li.appendChild(img);
   li.appendChild(name);
   a.appendChild(li);
   leftCol.appendChild(a);
-
-  offline.textContent = "Offline";
 
   rightCol.appendChild(offline);
 
@@ -57,39 +80,25 @@ function getOfflineUser(offlineUser) {
 
 function getStreamersCallback(data) {
   if(data.stream === null) {
-    var offlineUser = data._links.channel.substr(38);
+    let offlineUser = data._links.channel.substr(38);
     getOfflineUser(offlineUser);
   } else {
     var onlineUser = data._links.channel.substr(38);
     var url = "https://twitch.tv/" + onlineUser;
 
-    var row = document.createElement("div");
-    var leftCol = document.createElement("div");
-    var rightCol = document.createElement("div");
-    var a = document.createElement("a");
-    var li = document.createElement("li");
-    var name = document.createElement("span");
-    var online = document.createElement("small");
-    var img = document.createElement("img");
-
-    row.className = "online all";
-
-    leftCol.className = "leftCol";
-    rightCol.className = "rightCol";
-
-    a.setAttribute("href", url);
-    a.setAttribute("target", "blank");
-
-    img.setAttribute("src", data.stream.channel.logo);
-
-    name.textContent = data.stream.channel.display_name;
+    const row = createElement("div", "className", {}, "online all");
+    const leftCol = createElement("div", "className", {}, "leftCol");
+    const rightCol = createElement("div", "className", {}, "rightCol");
+    const a = createElement("a", "setAttribute", {"href" : url, "target" : "blank"}, "");
+    const li = createElement("li", "", {}, "");
+    const name = createElement("span", "textContent", {}, data.stream.channel.display_name);
+    const online = createElement("small", "textContent", {}, "Online");
+    const img = createElement("img", "setAttribute", {"src" : data.stream.channel.logo}, "");
 
     li.appendChild(img);
     li.appendChild(name);
     a.appendChild(li);
     leftCol.appendChild(a);
-
-    online.textContent = "Online";
 
     rightCol.appendChild(online);
 
@@ -112,6 +121,12 @@ for (var i = 0; i < channels.length; i++) {
   getStreamers(i);
 }
 
+input.addEventListener("keyup", () => {
+  let searchTerm = input.value;
+  let targets = channels.join("");
+  // Search Functionality to be implemented
+});
+
 online.addEventListener("click", () => {
   for (var i = 0; i < offlineUsers.length; i++) {
     offlineUsers[i].style.display = "none";
@@ -133,7 +148,6 @@ offline.addEventListener("click", () => {
 });
 
 all.addEventListener("click", () => {
-  console.log(allUsers);
   for (var i = 0; i < allUsers.length; i++) {
     allUsers[i].style.display = "inline";
   }
