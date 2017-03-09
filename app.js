@@ -51,6 +51,7 @@ function appendOfflineUser(data) {
   }
 
   const row = createElement("div", "className", {}, "offline all");
+  row.dataset.streamer = data.display_name.toLowerCase();
   const leftCol = createElement("div", "className", {}, "leftCol");
   const rightCol = createElement("div", "className", {}, "rightCol");
   const a = createElement("a", "setAttribute", {"href" : data.url, "target" : "blank"}, "");
@@ -87,6 +88,7 @@ function getStreamersCallback(data) {
     var url = "https://twitch.tv/" + onlineUser;
 
     const row = createElement("div", "className", {}, "online all");
+    row.dataset.streamer = data.stream.channel.display_name.toLowerCase()
     const leftCol = createElement("div", "className", {}, "leftCol");
     const rightCol = createElement("div", "className", {}, "rightCol");
     const a = createElement("a", "setAttribute", {"href" : url, "target" : "blank"}, "");
@@ -123,8 +125,13 @@ for (var i = 0; i < channels.length; i++) {
 
 input.addEventListener("keyup", () => {
   let searchTerm = input.value;
-  let targets = channels.join("");
-  // Search Functionality to be implemented
+  for (var i = 0; i < allUsers.length; i++) {
+    if(allUsers[i].dataset.streamer.includes(searchTerm)) {
+      allUsers[i].style.display = "inline";
+    } else {
+      allUsers[i].style.display = "none";
+    }
+  }
 });
 
 online.addEventListener("click", () => {
