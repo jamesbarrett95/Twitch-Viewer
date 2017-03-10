@@ -6,13 +6,16 @@ const offline = document.getElementById("offline");
 const all = document.getElementById("all");
 const input = document.getElementById("input");
 
+// HTMLCollection containing All, Online and Offline users
 const offlineUsers = document.getElementsByClassName("offline");
 const onlineUsers = document.getElementsByClassName("online");
 const allUsers = document.getElementsByClassName("all");
 
+// Channels to be displayed on the page
 const channels = ["efragtv", "OgamingSC2", "cretetion", "Orbital_Star", "freecodecamp", "CohhCarnage", "habathcx", "RobotCaleb", "noobs2ninjas"];
 let getStreamersPromise = Promise.resolve();
 
+// Create a HTML element with supplied propertys and attributes
 function createElement(elementName, property, attributes, value) {
 
   const element = document.createElement(elementName);
@@ -46,10 +49,12 @@ function createElement(elementName, property, attributes, value) {
 
 function appendOfflineUser(data) {
 
+  // If the user does not exist, return and skip to the next API call
   if(data.status === 404) {
     return;
   }
 
+  //Generate HTML and append to the screen
   const row = createElement("div", "className", {}, "offline all");
   row.dataset.streamer = data.display_name.toLowerCase();
   const leftCol = createElement("div", "className", {}, "leftCol");
@@ -74,11 +79,13 @@ function appendOfflineUser(data) {
 
 }
 
+// Execute another API call to get offline users
 function getOfflineUser(offlineUser) {
   var url = "https://api.twitch.tv/kraken/channels/" + offlineUser + "?client_id=t300383ams5iuxlej34gzwk11qjepn&stream_type=all&callback=?";
   $.getJSON(url, appendOfflineUser);
 }
 
+// Callback function executed after each API call
 function getStreamersCallback(data) {
   if(data.stream === null) {
     let offlineUser = data._links.channel.substr(38);
@@ -111,6 +118,7 @@ function getStreamersCallback(data) {
   }
 }
 
+// Send all streamers to the Twitch API in the exact order specified in the channels array
 function getStreamers(i) {
   var url = "https://api.twitch.tv/kraken/streams/" + channels[i] + "?client_id=t300383ams5iuxlej34gzwk11qjepn&stream_type=all&callback=?";
   var jsonData = $.getJSON(url);
@@ -119,10 +127,17 @@ function getStreamers(i) {
   }).then(getStreamersCallback);
 };
 
+// Iterate over channels array and display their information on the screen
 for (var i = 0; i < channels.length; i++) {
   getStreamers(i);
 }
 
+// Show all users before filtering
+input.addEventListener("focus", () => {
+  all.click();
+});
+
+// Filter users everytime the user presses a key
 input.addEventListener("keyup", () => {
   let searchTerm = input.value;
   for (var i = 0; i < allUsers.length; i++) {
@@ -134,6 +149,7 @@ input.addEventListener("keyup", () => {
   }
 });
 
+// Filter by online users
 online.addEventListener("click", () => {
   for (var i = 0; i < offlineUsers.length; i++) {
     offlineUsers[i].style.display = "none";
@@ -144,6 +160,7 @@ online.addEventListener("click", () => {
   }
 });
 
+// Filter by offline users
 offline.addEventListener("click", () => {
   for (var i = 0; i < onlineUsers.length; i++) {
     onlineUsers[i].style.display = "none";
@@ -154,6 +171,7 @@ offline.addEventListener("click", () => {
   }
 });
 
+// Show all users
 all.addEventListener("click", () => {
   for (var i = 0; i < allUsers.length; i++) {
     allUsers[i].style.display = "inline";
