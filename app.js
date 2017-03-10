@@ -139,7 +139,7 @@ input.addEventListener("focus", () => {
 
 // Filter users everytime the user presses a key
 input.addEventListener("keyup", () => {
-  let searchTerm = input.value;
+  let searchTerm = input.value.toLowerCase();
   for (var i = 0; i < allUsers.length; i++) {
     if(allUsers[i].dataset.streamer.includes(searchTerm)) {
       allUsers[i].style.display = "inline";
