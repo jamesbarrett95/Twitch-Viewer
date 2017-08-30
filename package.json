@@ -1,0 +1,36 @@
+{
+  "name": "twitch-viewer",
+  "version": "1.0.0",
+  "description": "View who is online or offline on Twitch",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jamesbarrett95/Twitch-Viewer.git"
+  },
+  "author": "James Barrett",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jamesbarrett95/Twitch-Viewer/issues"
+  },
+  "homepage": "https://github.com/jamesbarrett95/Twitch-Viewer#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-es2015": "^6.24.1",
+    "browser-sync": "^2.18.13",
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.0",
+    "gulp-cssnano": "^2.1.2",
+    "gulp-if": "^2.0.2",
+    "gulp-sass": "^3.1.0",
+    "gulp-uglify": "^3.0.0",
+    "gulp-useref": "^3.1.2",
+    "gulp-wait": "0.0.2",
+    "pump": "^1.0.2",
+    "run-sequence": "^2.1.0"
+  }
+}
