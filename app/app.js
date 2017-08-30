@@ -18,16 +18,14 @@ function createElement (elementName, property, attributes, value) {
   const element = document.createElement(elementName)
 
   function isEmpty (obj) {
-    for (var key in obj) {
-      if (obj.hasOwnProperty(key)) {
-        return false
-      }
+    for (let key in obj) {
+      if (obj.hasOwnProperty(key)) return false
     }
     return true
   }
 
   function setAttributes (element, property, attributes) {
-    for (var key in attributes) {
+    for (let key in attributes) {
       element[property](key, attributes[key])
     }
   }
@@ -46,9 +44,7 @@ function createElement (elementName, property, attributes, value) {
 
 function appendOfflineUser (data) {
   // If the user does not exist, return and skip to the next API call
-  if (data.status === 404) {
-    return
-  }
+  if (data.status === 404) return
 
   // Generate HTML and append to the screen
   const row = createElement('div', 'className', {}, 'offline all')
@@ -76,18 +72,18 @@ function appendOfflineUser (data) {
 
 // Execute another API call to get offline users
 function getOfflineUser (offlineUser) {
-  var url = 'https://api.twitch.tv/kraken/channels/' + offlineUser + '?client_id=t300383ams5iuxlej34gzwk11qjepn&stream_type=all&callback=?'
+  const url = 'https://api.twitch.tv/kraken/channels/' + offlineUser + '?client_id=t300383ams5iuxlej34gzwk11qjepn&stream_type=all&callback=?'
   $.getJSON(url, appendOfflineUser)
 }
 
 // Callback function executed after each API call
 function getStreamersCallback (data) {
   if (data.stream === null) {
-    let offlineUser = data._links.channel.substr(38)
+    const offlineUser = data._links.channel.substr(38)
     getOfflineUser(offlineUser)
   } else {
-    var onlineUser = data._links.channel.substr(38)
-    var url = 'https://twitch.tv/' + onlineUser
+    const onlineUser = data._links.channel.substr(38)
+    const url = `https://twitch.tv/${onlineUser}`
 
     const row = createElement('div', 'className', {}, 'online all')
     row.dataset.streamer = data.stream.channel.display_name.toLowerCase()
@@ -115,15 +111,15 @@ function getStreamersCallback (data) {
 
 // Send all streamers to the Twitch API in the exact order specified in the channels array
 function getStreamers (i) {
-  var url = 'https://api.twitch.tv/kraken/streams/' + channels[i] + '?client_id=t300383ams5iuxlej34gzwk11qjepn&stream_type=all&callback=?'
-  var jsonData = $.getJSON(url)
+  const url = 'https://api.twitch.tv/kraken/streams/' + channels[i] + '?client_id=t300383ams5iuxlej34gzwk11qjepn&stream_type=all&callback=?'
+  const jsonData = $.getJSON(url)
   getStreamersPromise = getStreamersPromise.then(function () {
     return jsonData
   }).then(getStreamersCallback)
 };
 
 // Iterate over channels array and display their information on the screen
-for (var i = 0; i < channels.length; i++) {
+for (let i = 0; i < channels.length; i++) {
   getStreamers(i)
 }
 
@@ -135,7 +131,7 @@ input.addEventListener('focus', () => {
 // Filter users everytime the user presses a key
 input.addEventListener('keyup', () => {
   let searchTerm = input.value.toLowerCase()
-  for (var i = 0; i < allUsers.length; i++) {
+  for (let i = 0; i < allUsers.length; i++) {
     if (allUsers[i].dataset.streamer.includes(searchTerm)) {
       allUsers[i].style.display = 'inline'
     } else {
@@ -146,29 +142,29 @@ input.addEventListener('keyup', () => {
 
 // Filter by online users
 online.addEventListener('click', () => {
-  for (var i = 0; i < offlineUsers.length; i++) {
+  for (let i = 0; i < offlineUsers.length; i++) {
     offlineUsers[i].style.display = 'none'
   }
 
-  for (var i = 0; i < onlineUsers.length; i++) {
+  for (let i = 0; i < onlineUsers.length; i++) {
     onlineUsers[i].style.display = 'inline'
   }
 })
 
 // Filter by offline users
 offline.addEventListener('click', () => {
-  for (var i = 0; i < onlineUsers.length; i++) {
+  for (let i = 0; i < onlineUsers.length; i++) {
     onlineUsers[i].style.display = 'none'
   }
 
-  for (var i = 0; i < offlineUsers.length; i++) {
+  for (let i = 0; i < offlineUsers.length; i++) {
     offlineUsers[i].style.display = 'inline'
   }
 })
 
 // Show all users
 all.addEventListener('click', () => {
-  for (var i = 0; i < allUsers.length; i++) {
+  for (let i = 0; i < allUsers.length; i++) {
     allUsers[i].style.display = 'inline'
   }
 })
