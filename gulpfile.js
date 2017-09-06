@@ -1,15 +1,14 @@
 const gulp = require('gulp')
 const sass = require('gulp-sass')
 const browserSync = require('browser-sync').create()
-const useref = require('gulp-useref')
 const uglify = require('gulp-uglify')
-const gulpIf = require('gulp-if')
 const babel = require('gulp-babel')
-const cssnano = require('gulp-cssnano')
+const cssnano = require('cssnano')
 const del = require('del')
 const runSequence = require('run-sequence')
 const wait = require('gulp-wait')
-const gutil = require('gulp-util')
+const postcss = require('gulp-postcss')
+const autoprefixer = require('autoprefixer')
 
 gulp.task('sass', () => {
   return gulp.src('app/scss/**/*.scss')
@@ -46,11 +45,13 @@ gulp.task('minifyjs', () => {
 })
 
 gulp.task('minifycss', () => {
-  return gulp.src('app/index.html')
-  .pipe(useref())
-   // Minifies only if it's app.css file
-  .pipe(gulpIf('app.css', cssnano()))
-  .pipe(gulp.dest('dist'))
+  const plugins = [
+    autoprefixer({browsers: ['last 1 version']}),
+    cssnano()
+  ]
+  return gulp.src('app/css/app.css')
+    .pipe(postcss(plugins))
+    .pipe(gulp.dest('dist/css'))
 })
 
 gulp.task('clean:dist', () => {
