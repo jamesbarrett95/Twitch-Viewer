@@ -11,13 +11,16 @@ const postcss = require('gulp-postcss')
 const autoprefixer = require('autoprefixer')
 
 gulp.task('sass', () => {
-  return gulp.src('app/scss/**/*.scss')
+  return gulp
+    .src('app/scss/**/*.scss')
     .pipe(wait(1500))
     .pipe(sass())
     .pipe(gulp.dest('app/css'))
-    .pipe(browserSync.reload({
-      stream: true
-    }))
+    .pipe(
+      browserSync.reload({
+        stream: true
+      })
+    )
 })
 
 gulp.task('watch', ['browserSync', 'sass'], () => {
@@ -36,37 +39,41 @@ gulp.task('browserSync', () => {
 })
 
 gulp.task('minifyjs', () => {
-  return gulp.src('app/app.js')
-    .pipe(babel({
-      presets: ['es2015']
-    }))
+  return gulp
+    .src('app/app.js')
+    .pipe(
+      babel({
+        presets: ['es2015']
+      })
+    )
     .pipe(uglify())
-    .pipe(gulp.dest('dist/js'))
+    .pipe(gulp.dest('dist'))
 })
 
 gulp.task('minifycss', () => {
-  const plugins = [
-    autoprefixer({browsers: ['last 1 version']}),
-    cssnano()
-  ]
-  return gulp.src('app/css/app.css')
+  const plugins = [autoprefixer({ browsers: ['last 1 version'] }), cssnano()]
+  return gulp
+    .src('app/css/app.css')
     .pipe(postcss(plugins))
     .pipe(gulp.dest('dist/css'))
+})
+
+gulp.task('movehtml', () => {
+  return gulp.src('app/index.html').pipe(gulp.dest('dist'))
 })
 
 gulp.task('clean:dist', () => {
   return del.sync('dist')
 })
 
-gulp.task('build', (callback) => {
-  runSequence('clean:dist',
-    ['sass', 'minifycss', 'minifyjs'],
+gulp.task('build', callback => {
+  runSequence(
+    'clean:dist',
+    ['sass', 'minifycss', 'minifyjs', 'movehtml'],
     callback
   )
 })
 
-gulp.task('default', (callback) => {
-  runSequence(['sass', 'browserSync', 'watch'],
-    callback
-  )
+gulp.task('default', callback => {
+  runSequence(['sass', 'browserSync', 'watch'], callback)
 })

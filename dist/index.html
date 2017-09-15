@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Twitch Viewer</title>
+  <link rel="stylesheet" type="text/css" href="css/app.css">
+</head>
+
+<body>
+  <div class="container">
+    <div id="all" class="filter">
+      <span>All</span>
+    </div>
+    <div id="online" class="filter">
+      <span>Online</span>
+    </div>
+    <div id="offline" class="filter">
+      <span>Offline</span>
+    </div>
+    <input id="input" type="text" placeholder="Search a Streamer!">
+    <hr>
+    <div class="streamers">
+      <ul class="streamers" id="streamers">
+
+      </ul>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+  <script src="app.js"></script>
+</body>
+</html>
